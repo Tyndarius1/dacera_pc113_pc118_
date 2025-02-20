@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
-
-class StudentController extends Controller
+use App\Models\Employee;
+class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Student::query();
+        $query = Employee::query();
     
    
         if ($request->has('search')) {
@@ -21,5 +20,5 @@ class StudentController extends Controller
         return response()->json($query->get());
     }
 
-
+   
 }
