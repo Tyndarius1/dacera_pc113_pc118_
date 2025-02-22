@@ -7,10 +7,21 @@ use App\Http\Controllers\EmployeeController;
 
 
 
+//Student
+Route::get('/students', [StudentController::class, 'index']);
+Route::get('/student-registration', [StudentController::class, 'store']);
+Route::put('/student/{id}', [StudentController::class, 'update']);
+Route::delete('/student/{id}', [StudentController::class, 'destroy']);
 
-Route::get('students', [StudentController::class, 'index']);
 
-Route::get('employees', [EmployeeController::class, 'index']);
+
+
+
+//Employee
+Route::get('/employees', [EmployeeController::class, 'index']);
+Route::get('/employee-registration', [EmployeeController::class, 'store']);
+Route::put('/employee/{id}', [EmployeeController::class, 'update']);
+Route::delete('/employee/{id}', [EmployeeController::class, 'destroy']);
 
 
 
