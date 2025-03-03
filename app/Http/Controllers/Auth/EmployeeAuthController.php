@@ -14,7 +14,7 @@ class EmployeeAuthController extends Controller
     public function register(Request $request)
     {
 
-        $validate = $request->validate([
+        $validate = $request->validate(rules: [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
@@ -64,4 +64,14 @@ class EmployeeAuthController extends Controller
             'token' => $token,
         ], 200);
     }
+
+
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json(['message' => 'Logged out successfully']);
+    }
+
+    
 }

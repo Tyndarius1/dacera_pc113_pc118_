@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Auth\StudentAuthController;
@@ -30,6 +31,46 @@ Route::delete('/employee/{id}', [EmployeeController::class, 'destroy']);
 
 Route::post('/employee-registration', [EmployeeAuthController::class, 'register']);
 Route::post('/employee-login', [EmployeeAuthController::class, 'login']);
+
+
+
+
+
+
+//User
+Route::post('/user-registration', [UserController::class, 'register']);
+Route::post('/user-login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
