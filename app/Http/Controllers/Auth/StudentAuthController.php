@@ -14,6 +14,7 @@ class StudentAuthController extends Controller
     public function register(Request $request)
     {
 
+       
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -32,13 +33,13 @@ class StudentAuthController extends Controller
 
 
         $token = $user->createToken('auth_token')->plainTextToken;
-        
+
         return response()->json([
-            'message' => 'User registered successfully',
-            'user' => $user,
-            'token' => $token,
-        ], 201);
+            'message' => 'User registration failed',
+        'token' => $token,
+        ], 500);
     }
+
 
 
     public function login(Request $request)

@@ -27,38 +27,50 @@ return response()->json($query->get());
 
 public function update(Request $request, $id)
 {
-$validate = $request->validate([
-'name' => 'sometimes|required|string|max:255',
-'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
-'password' => 'sometimes|required|string|min:8',
-'gender' => 'sometimes|required|string|max:255',
-'mobile' => 'sometimes|required|string|max:255',
-]);
+    try {
+        $validate = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'sometimes|required|string|min:8',
+            'gender' => 'sometimes|required|string|max:255',
+            'mobile' => 'sometimes|required|string|max:255',
+        ]);
 
-$user = Student::findOrFail($id);
+        $user = Student::findOrFail($id);
 
-if (isset($validate['name'])) {
-$user->name = $validate['name'];
-}
-if (isset($validate['email'])) {
-$user->email = $validate['email'];
-}
-if (isset($validate['password'])) {
-$user->password = Hash::make($validate['password']);
-}
-if (isset($validate['gender'])) {
-$user->gender = $validate['gender'];
-}
-if (isset($validate['mobile'])) {
-$user->mobile = $validate['mobile'];
-}
+        if (isset($validate['name'])) {
+            $user->name = $validate['name'];
+        }
+        if (isset($validate['email'])) {
+            $user->email = $validate['email'];
+        }
+        if (isset($validate['password'])) {
+            $user->password = Hash::make($validate['password']);
+        }
+        if (isset($validate['gender'])) {
+            $user->gender = $validate['gender'];
+        }
+        if (isset($validate['mobile'])) {
+            $user->mobile = $validate['mobile'];
+        }
 
-$user->save();
+        $user->save();
 
-return response()->json([
-'message' => 'User updated successfully',
-'user' => $user
-], 200);
+        return response()->json([
+            'message' => 'User updated successfully',
+            'user' => $user
+        ], 200);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'message' => 'Validation failed',
+            'errors' => $e->errors()
+        ], 422); 
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Something went wrong',
+            'error' => $e->getMessage()
+        ], 500); 
+    }
 }
 
 

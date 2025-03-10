@@ -14,30 +14,37 @@ class EmployeeAuthController extends Controller
     public function register(Request $request)
     {
 
-        $validate = $request->validate(rules: [
+        try {
+            $validate = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'gender' => 'required|string|max:255',
             'mobile' => 'required|string|max:255',
-        ]);
+            ]);
 
-        $user = Employee::create([
+            $user = Employee::create([
             'name' => $validate['name'],
             'email' => $validate['email'],
             'password' => Hash::make($validate['password']),
             'gender' => $validate['gender'],
             'mobile' => $validate['mobile'],
-        ]);
+            ]);
 
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-        
-        return response()->json([
+            return response()->json([
             'message' => 'User registered successfully',
             'user' => $user,
             'token' => $token,
-        ], 201);
+            ], 201);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+            'message' => 'Registration failed',
+            'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
 
