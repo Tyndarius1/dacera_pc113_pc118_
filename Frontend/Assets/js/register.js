@@ -26,7 +26,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
         }
 
         registerMessageElement.style.color = "green";
-        registerMessageElement.innerText = "Registration successful! You can now log in.";
+        registerMessageElement.innerText = "Registration successful! Log in now!.";
         setTimeout(() => {
             document.getElementById("registerModal").style.display = "none";
         }, 2000);
