@@ -1,0 +1,71 @@
+/* dashboard.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    transition: background 0.3s;
+}
+.dashboard {
+    display: flex;
+    width: 100%;
+}
+.sidebar {
+    width: 250px;
+    background: #2C3E50;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+}
+.sidebar h2 { text-align: center; }
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar ul li { margin: 15px 0; }
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px;
+    transition: 0.3s;
+}
+.sidebar ul li a:hover { background: #34495E; }
+.logout { color: red !important; }
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.card {
+    background: #ECF0F1;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+}
+.activity {
+    margin-top: 20px;
+}
+.activity ul { padding: 0; }
+.activity li {
+    background: #EAECEE;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+.dark-mode {
+    background: #1E1E1E;
+    color: white;
+}
+.dark-mode .card { background: #333; }
+.dark-mode .activity li { background: #444; }

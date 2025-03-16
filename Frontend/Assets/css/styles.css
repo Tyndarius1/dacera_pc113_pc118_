@@ -1,0 +1,197 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #dfffe0, #b8eacb, #a0ddcc, #7dcfb6);
+    background-size: 300% 300%;
+    animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* Password Field Container */
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Password Input */
+.password-container input {
+    width: 100%;
+    padding-right: 40px; /* Space for eye icon */
+}
+
+/* Eye Icon */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.toggle-password:hover {
+    color: #2e856e;
+}
+
+
+/* Container (Login & Modal) */
+.container, .modal-content {
+    background: rgba(255, 255, 255, 0.2); /* Transparent white */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+/* Heading */
+.container h2, .modal-content h2 {
+    margin-bottom: 1rem;
+    color: #2e856e;
+    font-weight: bold;
+}
+
+/* Input Fields */
+.container input, .modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.4);
+    transition: border 0.3s ease-in-out, background 0.3s;
+}
+
+.container input:focus, .modal-content input:focus {
+    border-color: #2e856e;
+    background: rgba(255, 255, 255, 0.6);
+    outline: none;
+}
+
+/* Buttons */
+.container button, .modal-content button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: linear-gradient(45deg, #2e856e, #49a78d);
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background 0.3s;
+}
+
+.container button:hover, .modal-content button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #49a78d, #2e856e);
+}
+
+/* Toggle Link */
+.toggle-link {
+    margin-top: 10px;
+    display: block;
+    font-size: 14px;
+    color: #2e856e;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.toggle-link:hover {
+    color: #1a5f4e;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+    background: #ff4d4d;
+    color: white;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.close:hover {
+    background: #d63031;
+}
+
+
+.error-message {
+    color: #fff;
+    background-color: #e74c3c;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 15px;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    display: none;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+}

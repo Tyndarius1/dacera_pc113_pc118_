@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Auth\StudentAuthController;
@@ -38,21 +38,15 @@ Route::post('/employee-login', [EmployeeAuthController::class, 'login']);
 
 
 //User
-Route::post('/user-registration', [UserController::class, 'register']);
-Route::post('/user-login', [UserController::class, 'login']);
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/users', [AuthController::class, 'read']);
 
-
-
-
-
-
-
-
-
-
-
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/update', [AuthController::class, 'update']);
+    Route::delete('/destroy', [AuthController::class, 'destroy']);
+});
 
 
 
