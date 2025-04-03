@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Student;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StudentFactory extends Factory
 {
@@ -16,6 +17,7 @@ class StudentFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'mobile' => $this->faker->phoneNumber(),
+            'password' => Hash::make('123'), 
             'gender' => $this->faker->randomElement(['male', 'female', 'other']),
         ];
     }

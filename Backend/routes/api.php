@@ -22,8 +22,6 @@ Route::post('/student-login', [StudentAuthController::class, 'login']);
 
 
 
-
-
 //Employee
 Route::get('/employees', [EmployeeController::class, 'index']);
 Route::put('/employee/{id}', [EmployeeController::class, 'update']);
@@ -37,41 +35,25 @@ Route::post('/employee-login', [EmployeeAuthController::class, 'login']);
 
 
 
-//User
+
+
+
+//Users Routes
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/users', [AuthController::class, 'read']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::put('/update', [AuthController::class, 'update']);
-    Route::delete('/destroy', [AuthController::class, 'destroy']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::delete('/profile/{id?}', [AuthController::class, 'destroy']);
+Route::put('/update/{id?}', [AuthController::class, 'update']);
+
+
+Route::middleware(['admin'])->group(function () {
+Route::get('/users', [AuthController::class, 'index']);
+Route::get('/user/{id}', [AuthController::class, 'show']);
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+});

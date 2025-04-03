@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class EmployeeFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'mobile' => $this->faker->phoneNumber(),
+            'password' => Hash::make('123'), 
             'gender' => $this->faker->randomElement(['male', 'female', 'other']),
         ];
     }
