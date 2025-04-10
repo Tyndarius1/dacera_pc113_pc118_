@@ -16,6 +16,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+
         $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
@@ -23,5 +24,6 @@ class AdminMiddleware
         }
 
         return $next($request);
+        
     }
 }

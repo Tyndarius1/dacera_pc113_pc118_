@@ -30,6 +30,8 @@ Route::delete('/employee/{id}', [EmployeeController::class, 'destroy']);
 Route::post('/employee-registration', [EmployeeAuthController::class, 'register']);
 Route::post('/employee-login', [EmployeeAuthController::class, 'login']);
 
+Route::post('/exam', [EmployeeController::class, 'exam']);
+
 
 
 

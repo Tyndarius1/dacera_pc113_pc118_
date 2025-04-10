@@ -57,6 +57,7 @@ return response()->json([
 
 
 
+
 // Get All Users
 
 public function index(Request $request)
@@ -71,7 +72,6 @@ public function index(Request $request)
 
     return response()->json($users);
 }
-
 
 
 
@@ -95,36 +95,53 @@ return response()->json($user, 200);
 
 
 // Register User
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Models\User; // or your appropriate model
+
 public function register(Request $request)
 {
-$request->validate([
-'first_name' => 'required|string|max:25',
-'middle_name' => 'required|string|max:25',
-'last_name' => 'required|string|max:25',
-'address' => 'required|string|max:255',
-'contact_number' => 'required|string|max:11',
-'age' => 'required|string|min:1|max:3',
-'gender' => 'required|string',
-'status' => 'required|string',
-'email' => 'required|string|email|max:255|unique:users',
-'password' => 'required|string|min:3',
-]);
+    $validator = Validator::make($request->all(), [
+        'first_name' => 'required|string|max:255',
+        'middle_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'address' => 'required|string|max:255',
+        'contact_number' => 'required|string|max:20',
+        'age' => 'required|integer|min:1|max:150',
+        'gender' => 'required|string',
+        'status' => 'required|string',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6',
+        'profile' => 'required|file|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-$user = User::create([
-'first_name' => $request->first_name,
-'middle_name' => $request->middle_name,
-'last_name' => $request->last_name,
-'address' => $request->address,
-'contact_number' => $request->contact_number,
-'age' => $request->age,
-'gender' => $request->gender,
-'status' => $request->status,
-'email' => $request->email,
-'password' => Hash::make($request->password),
-]);
+    if ($validator->fails()) {
+        return response()->json(['message' => $validator->errors()->first()], 422);
+    }
 
-return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
+   
+    $profilePath = $request->file('profile')->store('profiles', 'public');
+
+    
+    $user = User::create([
+        'first_name' => $request->first_name,
+        'middle_name' => $request->middle_name,
+        'last_name' => $request->last_name,
+        'address' => $request->address,
+        'contact_number' => $request->contact_number,
+        'age' => $request->age,
+        'gender' => $request->gender,
+        'status' => $request->status,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'profile' => $profilePath, 
+    ]);
+
+    return response()->json(['message' => 'User registered successfully.'], 201);
 }
+
+
 
 
 

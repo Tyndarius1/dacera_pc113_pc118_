@@ -26,7 +26,7 @@ class AdminSeeder extends Seeder
             'status' => 'Single',
             'email' => 'kb.dacera@mlgcl.edu.ph',
             'password' => Hash::make('123'),
-            'role' => 'admin', 
+            'role' => 'admin',
         ]);
        
     }

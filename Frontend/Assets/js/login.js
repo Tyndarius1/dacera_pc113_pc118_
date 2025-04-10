@@ -13,16 +13,14 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         });
 
         const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "Invalid email or password.");
+        if (!res.ok || !data.token || !data.user) {
+            throw new Error(data.message || "Invalid email or password.");
+        }
 
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
+        window.location.href = "dashboard.php";
 
-        if (data.role === "admin") {
-            window.location.href = "Dashboard/Admin/dashboard.php";
-        } else {
-            window.location.href = "Dashboard/User/dashboard.php";
-        }
     } catch (err) {
         messageElement.textContent = err.message || "Network error!";
         messageElement.classList.add("error-message", "fade-in");

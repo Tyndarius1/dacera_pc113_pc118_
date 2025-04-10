@@ -32,4 +32,10 @@ class UserSeeder extends Seeder
             ]);
         }
     }
+
+    public function profile()
+{
+    return $this->hasOne(Profile::class);
+}
+
 }

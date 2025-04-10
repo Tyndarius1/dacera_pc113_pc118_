@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('contact_number');
             $table->string('age')->nullable();
             $table->enum('gender', ['Male', 'Female', 'Other']);
-            $table->enum('status', ['Married', 'Single', 'Divorced', 'Widowed'])->default('Single');
             $table->string('profile')->nullable();
+            $table->enum('status', ['Married', 'Single', 'Divorced', 'Widowed'])->default('Single');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -74,4 +74,22 @@ return response()->json([
 
 
 
+public function exam(Request $request) {
+
+    $request->validate([
+        'name' => 'required|string'
+    ]);
+
+$user = Employee::create([
+    $request->validate->name,
+]);
+
+return response()->json([
+    'message' => 'Fuck you',
+    'user' => $user
+]);
+
+
+}
+
 }
