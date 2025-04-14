@@ -53,6 +53,7 @@ Route::put('/update/{id?}', [AuthController::class, 'update']);
 
 
 Route::middleware(['admin'])->group(function () {
+Route::post('/create', [AuthController::class, 'create']);
 Route::get('/users', [AuthController::class, 'index']);
 Route::get('/user/{id}', [AuthController::class, 'show']);
 });
