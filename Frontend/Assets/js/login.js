@@ -17,6 +17,10 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
             throw new Error(data.message || "Invalid email or password.");
         }
 
+        if (data.user.role !== 'admin') {
+            throw new Error("You do not have permission to access this page.");
+        }
+
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
         window.location.href = "dashboard.php";

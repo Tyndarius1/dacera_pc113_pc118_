@@ -6,6 +6,8 @@
     <title>Login & Register</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/register.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.js"></script>
 
 
 
@@ -57,7 +59,6 @@
             <input type="email" id="email" placeholder="Email" required>
             <input type="password" id="password" placeholder="Password" required>
 
-            <input type="file" id="profile" name="profile">
 
             <div class="full-width">
                 <button type="submit">Register</button>
@@ -66,11 +67,7 @@
     </div>
 </div>
 
-<!-- <script>
-    $(document).ready(function () {
-        $('.dropify').dropify();
-    });
-</script> -->
+
 
 
 <script src="assets/js/login.js"></script>

@@ -114,12 +114,11 @@ function openUpdateModal(id) {
 
 
 
-
-// Update Student Using API
-
-
+//Update Student
 document.getElementById("save-changes").addEventListener("click", function() {
     const id = this.getAttribute('data-id');
+
+   
     const updatedStudent = {
         first_name: document.getElementById("first-name").value,
         middle_name: document.getElementById("middle-name").value,
@@ -132,24 +131,67 @@ document.getElementById("save-changes").addEventListener("click", function() {
         email: document.getElementById("email").value
     };
 
-  
-    fetch(`http://127.0.0.1:8000/api/update/${id}`, {
-        method: 'PUT',
+   
+    fetch(`http://127.0.0.1:8000/api/user/${id}`, {
+        method: 'GET',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedStudent)
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
     })
     .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        fetchStudents(); 
-        $('#updateModal').modal('hide'); 
+    .then(student => {
+        
+        const isUpdated = Object.keys(updatedStudent).some(key => updatedStudent[key] !== student[key]);
+
+        if (!isUpdated) {
+            Swal.fire({
+                title: 'No Changes!',
+                text: "No changes were made to the student data.",
+                icon: 'info',
+                confirmButtonText: 'OK'
+            });
+            return; 
+        }
+
+        
+        fetch(`http://127.0.0.1:8000/api/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedStudent)
+        })
+        .then(response => response.json())
+        .then(data => {
+            Swal.fire({
+                title: 'Updated!',
+                text: data.message,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                fetchStudents();
+                $('#updateModal').modal('hide');
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            Swal.fire({
+                title: 'Error!',
+                text: "Failed to update student",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        });
     })
     .catch(error => {
         console.error(error);
-        alert("Failed to update student");
+        Swal.fire({
+            title: 'Error!',
+            text: "Failed to fetch student details for comparison.",
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
     });
 });
 
@@ -163,22 +205,42 @@ document.getElementById("save-changes").addEventListener("click", function() {
 // Delete Student Using API
 
 function deleteStudent(id) {
-    const confirmDelete = confirm("Are you sure you want to delete this student?");
-    if (!confirmDelete) return;
-
-    fetch(`http://127.0.0.1:8000/api/profile/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        fetchStudents();
-    })
-    .catch(error => {
-        console.error(error);
-        alert("Failed to delete student");
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://127.0.0.1:8000/api/profile/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    fetchStudents(); 
+                });
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: "Failed to delete student.",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        }
     });
 }
